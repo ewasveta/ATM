@@ -63,6 +63,23 @@ function setCookie(cname, cvalue, exdays)
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
+function deleteAllCookies() 
+{
+    console.log("deleteAllCookies run");
+
+    const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) 
+    {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+}  
+
+//deleteAllCookies() ;
+
 let customer = "";
 document.querySelector('button.card').addEventListener('click', welcome);
 
@@ -241,6 +258,8 @@ document.addEventListener('click', e =>
                         clining("INSERT YOUR CARD<br><br>BY CLICKING THE SLOT.");
                         toggleOptions(0);
     
+                        console.log(`NO pin code ${pinCode}`);
+
                         return;
                     }
                     if(pinCode.toString().length > 4)  pinCode=pinCode.toString().slice(0,4);
@@ -271,7 +290,7 @@ document.addEventListener('click', e =>
             {
                 menuBuffer = 'D';
                 document.querySelector(`#option1`).innerText =
-                "enter your deposit amount and press Enter button";
+                "enter your deposit amount and press Enter </b> button";
             }
             else if(symbol.toUpperCase() == 'R')
             {  
